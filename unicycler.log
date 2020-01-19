@@ -1,0 +1,90 @@
+
+
+Starting Unicycler (2020-01-15 12:44:58)
+----------------------------------------
+    Welcome to Unicycler, an assembly pipeline for bacterial genomes. Since you provided only long reads, Unicycler will assemble the reads with miniasm and then run repeated polishing rounds using Racon.
+    For more information, please see https://github.com/rrwick/Unicycler
+
+Command: /isg/shared/apps/unicycler/0.4.8/unicycler-runner.py -l /projects/EBP/Wegrzyn/Moss/Physcomitrellopsis_africana/cholorplast/mapped.fastq -o /projects/EBP/Wegrzyn/Moss/Physcomitrellopsis_africana/cholorplast/Unicycler --keep 2 --threads 8
+
+Unicycler version: v0.4.8
+Using 8 threads
+
+The output directory already exists and files may be reused or overwritten:
+  /projects/EBP/Wegrzyn/Moss/Physcomitrellopsis_africana/cholorplast/Unicycler
+
+Dependencies:
+  Program         Version   Status  
+  spades.py                 not used
+  racon           -         good    
+  makeblastdb     2.7.1+    good    
+  tblastn         2.7.1+    good    
+  bowtie2-build             not used
+  bowtie2                   not used
+  samtools                  not used
+  java                      not used
+  pilon                     not used
+  bcftools                  not used
+
+
+Loading reads (2020-01-15 12:44:58)
+-----------------------------------
+991,332 / 991,332 (100.0%) - 1,392,091,935 bp
+
+Duplicate read names found. Saving duplicate-free file:
+/projects/EBP/Wegrzyn/Moss/Physcomitrellopsis_africana/cholorplast/Unicycler/mapped_no_duplicates.fastq.gz
+
+
+Assembling contigs and long reads with miniasm (2020-01-15 13:17:19)
+--------------------------------------------------------------------
+Saving to /projects/EBP/Wegrzyn/Moss/Physcomitrellopsis_africana/cholorplast/Unicycler/miniasm_assembly/01_assembly_reads.fastq:
+  991,332 long reads
+
+Finding overlaps with minimap... 
+success
+  53,014,975 overlaps
+
+Assembling reads with miniasm... 
+success
+  421 segments, 421 links
+
+Saving /projects/EBP/Wegrzyn/Moss/Physcomitrellopsis_africana/cholorplast/Unicycler/miniasm_assembly/11_branching_paths_removed.gfa
+Merging segments into unitigs:
+  1 circular unitig
+  28 linear unitigs
+  total size = 5,336,833 bp
+Saving /projects/EBP/Wegrzyn/Moss/Physcomitrellopsis_africana/cholorplast/Unicycler/miniasm_assembly/12_unitig_graph.gfa
+Saving /projects/EBP/Wegrzyn/Moss/Physcomitrellopsis_africana/cholorplast/Unicycler/002_unitig_graph.gfa
+
+
+Polishing miniasm assembly with Racon (2020-01-15 13:37:54)
+-----------------------------------------------------------
+    Unicycler now uses Racon to polish the miniasm assembly. It does multiple rounds of polishing to get the best consensus. Circular unitigs are rotated between rounds such that all parts (including the ends) are polished well.
+
+Saving to /projects/EBP/Wegrzyn/Moss/Physcomitrellopsis_africana/cholorplast/Unicycler/miniasm_assembly/racon_polish/polishing_reads.fastq:
+  991,332 long reads
+
+Polish       Assembly          Mapping
+round            size          quality
+begin       5,336,833       446,693.24
+1           5,393,082       518,533.75
+2           5,368,697       514,571.11
+3           5,333,477       509,246.69
+
+Best polish: /projects/EBP/Wegrzyn/Moss/Physcomitrellopsis_africana/cholorplast/Unicycler/miniasm_assembly/racon_polish/006_rotated.fasta
+Saving /projects/EBP/Wegrzyn/Moss/Physcomitrellopsis_africana/cholorplast/Unicycler/miniasm_assembly/13_racon_polished.gfa
+Saving /projects/EBP/Wegrzyn/Moss/Physcomitrellopsis_africana/cholorplast/Unicycler/003_racon_polished.gfa
+
+
+Rotating completed replicons (2020-01-16 11:01:40)
+--------------------------------------------------
+    Any completed circular contigs (i.e. single contigs which have one link connecting end to start) can have their start position changed without altering the sequence. For consistency, Unicycler now searches for a starting gene (dnaA or repA) in each such contig, and if one is found, the contig is rotated to start with that gene on the forward strand.
+
+Segment   Length   Depth   Starting gene   Position   Strand   Identity   Coverage
+     28   11,052   0.96x   none found                                             
+
+
+Assembly complete (2020-01-16 11:02:28)
+---------------------------------------
+Saving /projects/EBP/Wegrzyn/Moss/Physcomitrellopsis_africana/cholorplast/Unicycler/assembly.gfa
+
